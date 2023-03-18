@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Meaning = require("../models/Meaning");
 const {transporter} = require('./mailConfig')
+const dotenv = require("dotenv");
+dotenv.config();
 
 // add new word
 router.post("/add-new-word", async (req, res) => {
@@ -91,5 +93,20 @@ router.post("/update-word-meaning/:id", async (req,res) => {
     res.status(500).json(error);
   }
 }) 
+
+// bismi pass check
+// add new meaning
+router.post("/add-new-meaning/:pass", async (req, res) => {
+  try {
+     const pass = req.params.pass
+     if(pass === process.env.BCC_PASS){
+       res.json({message:"auth"})
+     }else{
+       res.status(500).json({message:"failed"})
+     }
+  } catch (error) {
+    res.json(error);
+  }
+});
 
 module.exports = router;
