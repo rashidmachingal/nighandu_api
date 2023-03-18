@@ -96,7 +96,7 @@ router.post("/update-word-meaning/:id", async (req,res) => {
 
 // bismi pass check
 // add new meaning
-router.post("/add-new-meaning/:pass", async (req, res) => {
+router.post("/check-pass/:pass", async (req, res) => {
   try {
      const pass = req.params.pass
      if(pass === process.env.BCC_PASS){
